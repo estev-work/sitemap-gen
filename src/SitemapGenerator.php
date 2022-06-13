@@ -71,10 +71,15 @@ class SitemapGenerator
      */
     public function writeToFile(string $data): string
     {
-        $path = $this->pathForSave . '\sitemap.' . $this->resultFileType->value;
-        $file = fopen($path, "w+") or throw new FileCreateException($path);
-        fwrite($file, $data) or throw new FileWriteException($path);
-        fclose($file) or throw new FileWriteException($path);
+        try {
+            $path = $this->pathForSave . '/sitemap.' . $this->resultFileType->value;
+            $file = fopen($path, "w") or throw new FileCreateException($path);
+            fwrite($file, $data) or throw new FileWriteException($path);
+            fclose($file);
+        }catch (FileWriteException|FileCreateException $exception){
+            return $exception->getMessage();
+        }
+
         return $path;
     }
 }
