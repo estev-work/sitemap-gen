@@ -13,9 +13,9 @@ class Csv implements IGenerator
      */
     public function buildData(array $elements): string
     {
-        $rows = 'loc;lastmod;priority;changefreq\r\n';
+        $rows = 'loc;lastmod;priority;changefreq';
         foreach ($elements as $element){
-            $rows.= $element->getLoc().';'.$element->getLastmod().';'.$element->getPriority().';'.$element->getChangefreq().'\r\n';
+            $rows.= $element->getLoc().';'.$element->getLastmod().';'.$element->getPriority().';'.$element->getChangefreq();
         }
         return $rows;
     }
