@@ -20,5 +20,10 @@
     "psr-4": {
       "Estev\\Sitemap\\": "src/"
     }
+  },
+  "extra": {
+    "branch-alias": {
+      "dev-main": "1.0.0-dev"
+    }
   }
 }
