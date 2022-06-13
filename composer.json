@@ -3,7 +3,7 @@
   "description": "Packege for sitemap generate",
   "minimum-stability": "dev",
   "type": "library",
-  "license": "MTI",
+  "license": "proprietary",
   "authors": [
     {
       "name": "estev",
