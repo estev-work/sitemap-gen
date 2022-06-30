@@ -36,6 +36,18 @@ class SitemapGenerator
     }
 
     /**
+     * @param array $params
+     * @param FileType $resultFileType
+     * @param string $outputDir
+     * @return string
+     * @throws CreateSiteMapElementException
+     */
+    public static function generate(array $params, FileType $resultFileType, string $outputDir): string
+    {
+        return (new self($params, $resultFileType, $outputDir))->create();
+    }
+
+    /**
      * @throws Exceptions\CreateSiteMapElementException
      */
     public function create():string | false
