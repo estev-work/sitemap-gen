@@ -2,6 +2,7 @@
 
 namespace Estev\Sitemap;
 
+use Estev\Sitemap\Enums\ChangeFreq;
 use Estev\Sitemap\Enums\FileType;
 use Estev\Sitemap\Exceptions\CreateSiteMapElementException;
 use Estev\Sitemap\Exceptions\EmptyParamsArrayException;
@@ -43,6 +44,7 @@ class SitemapGenerator
      * @param string $outputDir
      * @return string
      * @throws CreateSiteMapElementException
+     * @throws Exception
      */
     public static function generate(array $params, FileType $resultFileType, string $outputDir): string
     {
@@ -69,7 +71,7 @@ class SitemapGenerator
         $elements = array();
         foreach ($this->params as $data) {
             Validate::validateElementParam($data);
-            $elements[] = new Element($data['loc'], new \DateTime($data['lastmod']),  $data['priority'], $data['changefreq']);
+            $elements[] = new Element($data['loc'], new \DateTime($data['lastmod']),  $data['priority'], ChangeFreq::from($data['changefreq']));
         }
 
         $fileData = $generator->buildData($elements);

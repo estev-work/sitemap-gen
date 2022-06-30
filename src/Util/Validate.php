@@ -29,6 +29,10 @@ class Validate
         if (!is_numeric($pageParam['priority'])) {
             throw new CreateSiteMapElementException('"lastmod" not numeric');
         }
+
+        if (ChangeFreq::from($pageParam['changefreq']) == null){
+            throw new CreateSiteMapElementException('"changefreq" not valid ('.$pageParam['changefreq'].')');
+        }
     }
 
     /**
