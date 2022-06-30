@@ -24,17 +24,17 @@ class SitemapGenerator
     /**
      * @param array $params
      * @param FileType $resultFileType
-     * @param string $pathForSave
-     * @throws \Exception
+     * @param string $outputDir
+     * @throws Exception
      */
-    public function __construct(array $params, FileType $resultFileType, string $pathForSave)
+    public function __construct(array $params, FileType $resultFileType, string $outputDir)
     {
         if (!empty($params)) {
             $this->params = $params;
         } else {
             throw new EmptyParamsArrayException();
         }
-        $this->pathForSave = $pathForSave;
+        $this->pathForSave = $outputDir;
         $this->resultFileType = $resultFileType;
     }
 
@@ -63,7 +63,7 @@ class SitemapGenerator
     }
     /**
      * @throws Exceptions\CreateSiteMapElementException
-     * @throws \Exception
+     * @throws Exception
      */
     private function build(IGenerator $generator): string
     {
@@ -74,24 +74,6 @@ class SitemapGenerator
         }
 
         $fileData = $generator->buildData($elements);
-        return $this->writeToFile($fileData);
-    }
-
-    /**
-     * @throws FileCreateException
-     * @throws FileWriteException
-     */
-    public function writeToFile(string $data): string
-    {
-        try {
-            $path = $this->pathForSave . '/sitemap.' . $this->resultFileType->value;
-            $file = fopen($path, "w") or throw new FileCreateException($path);
-            fwrite($file, $data) or throw new FileWriteException($path);
-            fclose($file);
-        }catch (FileWriteException|FileCreateException $exception){
-            return $exception->getMessage();
-        }
-
-        return $path;
+        return FileWriter::writeToFile($fileData, $this->pathForSave, $this->resultFileType);
     }
 }
