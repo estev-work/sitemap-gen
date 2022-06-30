@@ -14,40 +14,18 @@ class Element
     private ChangeFreq $changefreq;
 
     /**
-     * @param array $pageParam ["loc"=>"https://site.ru/", "lastmod"=>"2020-12-14", "priority"=>1, "changefreq"=>"hourly"]
+     * @param string $loc
+     * @param DateTime $lastmod
+     * @param float $priority
+     * @param ChangeFreq $changefreq
      * @throws CreateSiteMapElementException
      */
-    public function __construct(array $pageParam)
+    public function __construct(string $loc, DateTime $lastmod, float $priority, ChangeFreq $changefreq)
     {
-        if (empty($pageParam['loc'])) {
-            throw new CreateSiteMapElementException('"loc" empty');
-        } else {
-            $this->loc = $pageParam['loc'];
-        }
-
-        if (empty($pageParam['lastmod'])) {
-            throw new CreateSiteMapElementException('"lastmod" empty');
-        } else {
-            try {
-                $this->lastmod = new DateTime($pageParam['lastmod']);
-            } catch (\Exception $exception) {
-                throw new CreateSiteMapElementException($exception);
-            }
-        }
-
-        if (empty($pageParam['priority'])) {
-            throw new CreateSiteMapElementException('"lastmod" empty');
-        } else if (!is_numeric($pageParam['priority'])) {
-            throw new CreateSiteMapElementException('"lastmod" not numeric');
-        } else {
-            $this->priority = $pageParam['priority'];
-        }
-
-        if (empty($pageParam['changefreq'])) {
-            throw new CreateSiteMapElementException('"lastmod" empty');
-        } else {
-            $this->changefreq = ChangeFreq::from($pageParam['changefreq']);
-        }
+        $this->loc = $loc;
+        $this->lastmod = $lastmod;
+        $this->priority = $priority;
+        $this->changefreq = $changefreq;
     }
 
     /**
