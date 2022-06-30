@@ -3,6 +3,7 @@
 namespace Estev\Sitemap;
 
 use Estev\Sitemap\Enums\FileType;
+use Estev\Sitemap\Exceptions\CreateSiteMapElementException;
 use Estev\Sitemap\Exceptions\EmptyParamsArrayException;
 use Estev\Sitemap\Exceptions\FileCreateException;
 use Estev\Sitemap\Exceptions\FileWriteException;
@@ -52,17 +53,13 @@ class SitemapGenerator
     /**
      * @throws Exceptions\CreateSiteMapElementException
      */
-    public function create():string | false
+    public function create():string
     {
-        if ($this->resultFileType == FileType::Json) {
-            return $this->build(new Json());
-        } elseif ($this->resultFileType == FileType::Csv) {
-            return $this->build(new Csv());
-        } elseif ($this->resultFileType == FileType::Xml) {
-            return $this->build(new Xml());
-        }else{
-            return false;
-        }
+        return match ($this->resultFileType) {
+            FileType::Json => $this->build(new Json()),
+            FileType::Csv => $this->build(new Csv()),
+            FileType::Xml => $this->build(new Xml()),
+        };
     }
     /**
      * @throws Exceptions\CreateSiteMapElementException
