@@ -5,12 +5,11 @@ namespace Estev\Sitemap;
 use Estev\Sitemap\Enums\FileType;
 use Estev\Sitemap\Exceptions\CreateSiteMapElementException;
 use Estev\Sitemap\Exceptions\EmptyParamsArrayException;
-use Estev\Sitemap\Exceptions\FileCreateException;
-use Estev\Sitemap\Exceptions\FileWriteException;
 use Estev\Sitemap\Generators\Csv;
 use Estev\Sitemap\Generators\Json;
 use Estev\Sitemap\Generators\Xml;
 use Estev\Sitemap\Interfaces\IGenerator;
+use Estev\Sitemap\Util\FileWriter;
 use Estev\Sitemap\Util\Validate;
 use Exception;
 
