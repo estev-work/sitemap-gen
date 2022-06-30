@@ -10,6 +10,8 @@ use Estev\Sitemap\Generators\Csv;
 use Estev\Sitemap\Generators\Json;
 use Estev\Sitemap\Generators\Xml;
 use Estev\Sitemap\Interfaces\IGenerator;
+use Estev\Sitemap\Util\Validate;
+use Exception;
 
 class SitemapGenerator
 {
@@ -70,7 +72,8 @@ class SitemapGenerator
     {
         $elements = array();
         foreach ($this->params as $data) {
-            $elements[] = new Element($data);
+            Validate::validateElementParam($data);
+            $elements[] = new Element($data['loc'], new \DateTime($data['lastmod']),  $data['priority'], $data['changefreq']);
         }
 
         $fileData = $generator->buildData($elements);
